@@ -57,3 +57,17 @@
 - Clarified `.env.example`: `SOVRN_PUBLISHER_KEY` = Sovrn **API key** (required in Vercel Production/Preview/Development); `SOVRN_API_SECRET` optional, kept out of code. No secrets committed.
 - **Verified (strict audit):** built + served with the real key → `/`, `/men`, `/women`, `/kids` carry 12/3/2/1 real-key Sovrn links respectively, **0 demo-key links, 0 `#` links**. Without the key, the build emits the demo-key WARNING (safeguard works).
 - **Vercel env step is PENDING** — no Vercel CLI/token/project link in this environment, so the `SOVRN_PUBLISHER_KEY` variable must be added in the Vercel dashboard (or by the owner supplying a Vercel token). Code + docs are production-ready for it.
+
+## [2026-09-05] — Real merchant products replace demo URLs (align_real)
+- Replaced every demo `shop.example.com` destination with a **real, live, gender-accurate merchant product page (StockX)** in `lib/products.ts`:
+  - Men · Nike → Nike Dunk Low Retro "Panda" (2021) → stockx.com/nike-dunk-low-retro-white-black-2021
+  - Men · adidas → Samba OG "Cloud White/Core Black" → stockx.com/adidas-samba-og-cloud-white-core-black
+  - Men · Jordan → AJ1 Retro High OG "Chicago Lost & Found" → stockx.com/air-jordan-1-retro-high-og-chicago-reimagined-lost-and-found
+  - Women · New Balance → 574 "Nimbus Cloud White" → stockx.com/new-balance-574-nimbus-cloud-white-w
+  - Women · Jordan → AJ1 Mid "Panda" → stockx.com/air-jordan-1-mid-panda-womens
+  - Kids · Nike → Dunk Low Retro "Panda" (GS) → stockx.com/nike-dunk-low-retro-white-black-gs
+  - Each slug validated against a live StockX product page (searched/fetched).
+- Updated titles + prices to the real models; **kept strict audience (Men/Women/Kids), brand, and image keys (prod-1..6)**; every `affiliateUrl` remains a strict Sovrn wrap of the real destination.
+- Regenerated `public/images/prod-1..6.jpg` as stylized studio renders of each real model/colorway (note to swap for official merchant imagery at go-live). Aligned homepage hero "featured grail" copy to the real AJ1 "Chicago Lost & Found".
+- Removed all `shop.example.com` references; updated README go-live note.
+- Verified: clean build (real key); `/`, `/men`, `/women`, `/kids` → 6/3/2/1 real product cards, each with a real-key Sovrn link pointing to a real StockX destination.

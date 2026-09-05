@@ -102,11 +102,11 @@ export function Hero() {
                     Featured grail
                   </p>
                   <p className="text-sm font-semibold text-white">
-                    Retro Court High · &quot;Midnight Volt&quot;
+                    Air Jordan 1 High OG · &quot;Chicago Lost &amp; Found&quot;
                   </p>
                 </div>
                 <div className="shrink-0 rounded-xl bg-primary px-3 py-2 text-sm font-bold text-primary-foreground">
-                  $185
+                  $180
                 </div>
               </div>
             </div>

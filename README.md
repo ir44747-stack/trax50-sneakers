@@ -89,8 +89,8 @@ All affiliate anchors use `rel="noopener noreferrer nofollow sponsored"`.
 > **Going live:** set `SOVRN_PUBLISHER_KEY` (your Sovrn **API key**) as a Vercel
 > Environment Variable for Production, Preview and Development, then deploy. The
 > build-time safeguard in `lib/affiliate.ts` warns if a production build would run
-> on the demo key. Also replace the demo `shop.example.com` `destinationUrl`
-> values in `lib/products.ts` with real merchant product URLs. The Sovrn secret
+> on the demo key. Catalog `destinationUrl`s already point at real merchant product
+> pages (StockX) and are Sovrn-wrapped at build time. The Sovrn secret
 > (`SOVRN_API_SECRET`) is only needed if you call Sovrn's server-side API — keep it
 > out of code (store as an encrypted Vercel secret if used).
 

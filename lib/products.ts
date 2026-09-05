@@ -1,7 +1,7 @@
 /**
- * TRAX.50 — Product catalog.
+ * TRAX.50 — Product catalog (real products).
  *
- * Every product MUST satisfy BOTH strict rules enforced in this data layer:
+ * Every product MUST satisfy the strict rules enforced in this data layer:
  *   1. Belongs to exactly one Men / Women / Kids audience (`audience` required).
  *   2. Carries a VALID Sovrn tracking URL (`affiliateUrl`) — never "#", never empty.
  *   3. Carries a usable, non-empty image path (`image`).
@@ -10,9 +10,13 @@
  * product, image or sneaker ever reaches the render layer without a valid
  * affiliate tracking link and a valid image.
  *
- * NOTE ON DEMO LINKS: `affiliateUrl` is a well-formed Sovrn/VigLink URL that
- * points at a clearly-marked `shop.example.com` demo destination. Swap in your
- * real merchant product URLs and set `SOVRN_PUBLISHER_KEY` to go live.
+ * `destinationUrl` points to a real, live merchant product page (StockX). Each
+ * destination is Sovrn-wrapped into `affiliateUrl` (see lib/affiliate.ts) using
+ * the publisher key from `SOVRN_PUBLISHER_KEY`.
+ *
+ * NOTE ON IMAGERY: images in /public/images are stylized studio renders of each
+ * model/colorway. Replace them with the official merchant product images from
+ * the destination pages before full go-live for 1:1 accuracy.
  */
 
 import {
@@ -46,9 +50,6 @@ export type Product = {
 
 const ASSET = "/images";
 
-/** Demo retailer origin used only until real merchant URLs are supplied. */
-const DEMO_DEST = "https://shop.example.com";
-
 type Seed = Omit<Product, "affiliateUrl">;
 
 function seedToProduct(seed: Seed): Product {
@@ -58,71 +59,74 @@ function seedToProduct(seed: Seed): Product {
 const seeds: Seed[] = [
   {
     id: "trax-001",
-    name: "Retro Court High 'Midnight Volt'",
+    name: "Nike Dunk Low Retro 'Panda' (2021)",
     brand: "nike",
     audience: "men",
-    price: 185,
+    price: 115,
     currency: "USD",
     image: `${ASSET}/prod-1.jpg`,
-    tag: "DROP",
+    tag: "RESTOCK",
     isNew: true,
-    destinationUrl: `${DEMO_DEST}/nike-retro-court-high-midnight-volt`,
+    destinationUrl:
+      "https://stockx.com/nike-dunk-low-retro-white-black-2021",
   },
   {
     id: "trax-002",
-    name: "Flux Runner 'Graphite Volt'",
+    name: "adidas Samba OG 'Cloud White / Core Black'",
     brand: "adidas",
     audience: "men",
-    price: 160,
+    price: 100,
     currency: "USD",
     image: `${ASSET}/prod-2.jpg`,
     tag: "HOT",
-    destinationUrl: `${DEMO_DEST}/adidas-flux-runner-graphite-volt`,
+    isNew: true,
+    destinationUrl: "https://stockx.com/adidas-samba-og-cloud-white-core-black",
   },
   {
     id: "trax-003",
-    name: "Cloudmonster Luxe 'Cream Sand'",
+    name: "New Balance 574 'Nimbus Cloud White'",
     brand: "new-balance",
     audience: "women",
-    price: 220,
+    price: 100,
     currency: "USD",
     image: `${ASSET}/prod-3.jpg`,
     isNew: true,
-    destinationUrl: `${DEMO_DEST}/new-balance-cloudmonster-luxe-cream-sand`,
+    destinationUrl: "https://stockx.com/new-balance-574-nimbus-cloud-white-w",
   },
   {
     id: "trax-004",
-    name: "Skyline Pro 'Slate Blue'",
+    name: "Air Jordan 1 Retro High OG 'Chicago Lost & Found'",
     brand: "jordan",
     audience: "men",
-    price: 200,
+    price: 180,
     currency: "USD",
     image: `${ASSET}/prod-4.jpg`,
     tag: "GRAIL",
-    destinationUrl: `${DEMO_DEST}/jordan-skyline-pro-slate-blue`,
+    destinationUrl:
+      "https://stockx.com/air-jordan-1-retro-high-og-chicago-reimagined-lost-and-found",
   },
   {
     id: "trax-005",
-    name: "Heritage Court 'Triple White'",
+    name: "Nike Dunk Low Retro 'Panda' (GS)",
     brand: "nike",
     audience: "kids",
-    price: 140,
+    price: 85,
     currency: "USD",
     image: `${ASSET}/prod-5.jpg`,
-    tag: "RESTOCK",
-    destinationUrl: `${DEMO_DEST}/nike-heritage-court-triple-white-kids`,
+    tag: "DROP",
+    isNew: true,
+    destinationUrl: "https://stockx.com/nike-dunk-low-retro-white-black-gs",
   },
   {
     id: "trax-006",
-    name: "Futura Voltic 'Acid Hi'",
+    name: "Air Jordan 1 Mid 'Panda' (Women's)",
     brand: "jordan",
     audience: "women",
-    price: 260,
+    price: 125,
     currency: "USD",
     image: `${ASSET}/prod-6.jpg`,
     tag: "HOT",
-    isNew: true,
-    destinationUrl: `${DEMO_DEST}/jordan-futura-voltic-acid-hi`,
+    destinationUrl: "https://stockx.com/air-jordan-1-mid-panda-womens",
   },
 ];
 
