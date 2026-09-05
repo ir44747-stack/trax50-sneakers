@@ -49,6 +49,12 @@
 - [x] **Strict data-layer rule:** `renderableProducts` now drops products lacking a valid Sovrn tracking URL OR a valid image (`isRenderable`). Added `getProductsByAudience`, `menProducts`, `womenProducts`, `kidsProducts`.
 - [x] Verified: build clean; pages 200; no cross-audience leak (Men=3, Women=2, Kids=1).
 
+## Phase 3 — Production Sovrn key wiring
+- [x] `lib/affiliate.ts` reads `SOVRN_PUBLISHER_KEY` from env; added `isUsingDemoKey()` + `assertProductionKeyConfigured()` demo-key warning (build-time safeguard).
+- [x] `.env.example` documents `SOVRN_PUBLISHER_KEY` (API key) + optional `SOVRN_API_SECRET` (kept out of code). No secrets committed.
+- [x] Strict audit passed with real key injected: `/`, `/men`, `/women`, `/kids` → 12/3/2/1 real-key Sovrn links, 0 demo-key, 0 `#`.
+- [ ] **ACTION NEEDED (owner):** add `SOVRN_PUBLISHER_KEY` = real Sovrn API key in the **Vercel dashboard** (Settings → Environment Variables → Production/Preview/Development). No Vercel token/project link available to this agent.
+
 ## Next Action
 - **Phase 3 (finish):** replace demo `shop.example.com` destinations with real merchant URLs; set real Sovrn key; add click analytics.
 - **Then:** Phase 4 (SEO/OG/content) and Phase 5 (domain + Vercel).

@@ -86,10 +86,13 @@ or lacks a valid `key` + `u` destination. Enforcement lives in two places:
 
 All affiliate anchors use `rel="noopener noreferrer nofollow sponsored"`.
 
-> **Going live:** set `SOVRN_PUBLISHER_KEY` to your real Sovrn API key and replace
-> the demo `shop.example.com` `destinationUrl` values in `lib/products.ts` with
-> real merchant product URLs. Until then a clearly-marked **demo key** is used so
-> the pipeline stays testable.
+> **Going live:** set `SOVRN_PUBLISHER_KEY` (your Sovrn **API key**) as a Vercel
+> Environment Variable for Production, Preview and Development, then deploy. The
+> build-time safeguard in `lib/affiliate.ts` warns if a production build would run
+> on the demo key. Also replace the demo `shop.example.com` `destinationUrl`
+> values in `lib/products.ts` with real merchant product URLs. The Sovrn secret
+> (`SOVRN_API_SECRET`) is only needed if you call Sovrn's server-side API — keep it
+> out of code (store as an encrypted Vercel secret if used).
 
 ---
 

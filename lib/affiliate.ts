@@ -29,8 +29,30 @@ export type AffiliateValidation = {
   reason?: string;
 };
 
-function resolvePublisherKey(): string {
+/** Resolve the configured Sovrn publisher key (env) or fall back to demo. */
+export function resolvePublisherKey(): string {
   return process.env.SOVRN_PUBLISHER_KEY?.trim() || SOVRN_DEMO_KEY;
+}
+
+/** True when no real key is configured and links would use the demo key. */
+export function isUsingDemoKey(): boolean {
+  return !process.env.SOVRN_PUBLISHER_KEY?.trim();
+}
+
+/**
+ * Production safeguard: warn loudly when a production build would ship demo
+ * (non-monetizing) affiliate links because SOVRN_PUBLISHER_KEY is not set.
+ * Vercel must provide the real key in the build environment.
+ */
+export function assertProductionKeyConfigured(): void {
+  if (isUsingDemoKey()) {
+    if (process.env.NODE_ENV === "production") {
+      console.warn(
+        "[affiliate] WARNING: SOVRN_PUBLISHER_KEY is not set — demo affiliate key will be used. " +
+          "Set the real key as a Vercel environment variable before going live."
+      );
+    }
+  }
 }
 
 /** True when the string is non-empty and not a bare placeholder like "#". */
@@ -125,3 +147,6 @@ export function getValidatedAffiliateUrl(
 ): string | null {
   return validateSovrnAffiliateUrl(raw).url;
 }
+
+/** Run the demo-key safeguard once when the affiliate module loads (build time). */
+assertProductionKeyConfigured();

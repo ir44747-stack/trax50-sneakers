@@ -50,3 +50,10 @@
   - Deleted `components/drops-grid.tsx` (old mixed/switchable grid). Repointed homepage CTA / featured / not-found links away from `/drops`.
 - **Strict Sovrn + image data-layer rule (`lib/products.ts`):** added `isValidProductImage` and `isRenderable` (valid Sovrn tracking URL AND valid image). `renderableProducts` now drops ANY product lacking a valid affiliate link OR a usable image; added `getProductsByAudience`, `menProducts`, `womenProducts`, `kidsProducts`.
 - Verified: clean `npm run build` (SSG routes `/men`,`/women`,`/kids`), all pages HTTP 200, rendered "Cop it" anchors are valid `redirect.viglink.com` links, all product images exist under `/public/images/`.
+
+## [2026-09-05] — Production Sovrn key wiring + strict-affiliate audit
+- Confirmed `lib/affiliate.ts` reads `SOVRN_PUBLISHER_KEY` from env → this is exactly the var Vercel must provide. Validated locally by injecting the real Sovrn API key at build time.
+- Added production safeguard to `lib/affiliate.ts`: `resolvePublisherKey()` (exported), `isUsingDemoKey()`, `assertProductionKeyConfigured()` — emits a clear build-time warning when a production build would run on the demo key. Invoked at module load.
+- Clarified `.env.example`: `SOVRN_PUBLISHER_KEY` = Sovrn **API key** (required in Vercel Production/Preview/Development); `SOVRN_API_SECRET` optional, kept out of code. No secrets committed.
+- **Verified (strict audit):** built + served with the real key → `/`, `/men`, `/women`, `/kids` carry 12/3/2/1 real-key Sovrn links respectively, **0 demo-key links, 0 `#` links**. Without the key, the build emits the demo-key WARNING (safeguard works).
+- **Vercel env step is PENDING** — no Vercel CLI/token/project link in this environment, so the `SOVRN_PUBLISHER_KEY` variable must be added in the Vercel dashboard (or by the owner supplying a Vercel token). Code + docs are production-ready for it.
