@@ -42,6 +42,13 @@
 - [ ] Wire real merchant product URLs into `lib/products.ts` destinations.
 - [ ] Set real `SOVRN_PUBLISHER_KEY`, add click-tracking/analytics.
 
+## Phase 2/3 hardening — Clean Navigation & Strict Sections
+- [x] **Clean navbar:** nav is ONLY Home / Men / Women / Kids (removed Shop Drops CTA, IG icon, and old Home/Drops/Collections/About). Mobile menu matches.
+- [x] **Footer cleanup:** removed dead `#` links (X, Privacy/Terms/Disclosure) and dead "Brands" column.
+- [x] **Strict routes:** removed generic `/drops`; dedicated SSG pages `/men`, `/women`, `/kids` (`app/[audience]`); anything else → 404. Deleted old `drops-grid`.
+- [x] **Strict data-layer rule:** `renderableProducts` now drops products lacking a valid Sovrn tracking URL OR a valid image (`isRenderable`). Added `getProductsByAudience`, `menProducts`, `womenProducts`, `kidsProducts`.
+- [x] Verified: build clean; pages 200; no cross-audience leak (Men=3, Women=2, Kids=1).
+
 ## Next Action
 - **Phase 3 (finish):** replace demo `shop.example.com` destinations with real merchant URLs; set real Sovrn key; add click analytics.
 - **Then:** Phase 4 (SEO/OG/content) and Phase 5 (domain + Vercel).

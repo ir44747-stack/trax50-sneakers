@@ -43,7 +43,7 @@ export function Categories() {
             return (
               <Reveal key={a.value} delay={i * 70}>
                 <Link
-                  href={`/drops?audience=${a.value}`}
+                  href={`/${a.value}`}
                   className="group relative block aspect-[3/4] overflow-hidden rounded-2xl border border-white/5 bg-surface"
                 >
                   <Image

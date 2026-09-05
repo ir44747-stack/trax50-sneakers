@@ -115,7 +115,7 @@ trax50-sneakers/
 ├── app/                # Next.js App Router pages & layouts
 │   ├── layout.tsx      # Root layout
 │   ├── page.tsx        # Homepage
-│   ├── drops/          # Drops catalog (audience + brand filters)
+│   ├── [audience]/     # Strict sections: /men, /women, /kids
 │   ├── not-found.tsx   # Custom 404
 │   └── globals.css     # Global styles / design system
 ├── components/         # Reusable UI components (shadcn/ui + custom)

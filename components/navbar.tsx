@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, ShoppingBag } from "lucide-react";
-import { InstagramGlyph } from "@/components/social-icons";
+import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
@@ -39,7 +38,7 @@ export function Navbar() {
           <Logo />
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop links — strict: Home / Men / Women / Kids only */}
         <div className="hidden items-center gap-1 md:flex">
           {site.nav.map((item) => (
             <Link
@@ -50,20 +49,6 @@ export function Navbar() {
               {item.label}
             </Link>
           ))}
-        </div>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" size="icon" asChild aria-label="Instagram">
-            <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer">
-              <InstagramGlyph />
-            </a>
-          </Button>
-          <Button asChild className="gap-2">
-            <Link href="/drops">
-              <ShoppingBag className="h-4 w-4" />
-              Shop Drops
-            </Link>
-          </Button>
         </div>
 
         {/* Mobile toggle */}
@@ -79,10 +64,10 @@ export function Navbar() {
         </Button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — strict: Home / Men / Women / Kids only */}
       <div
         className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-300 ${
-          open ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="space-y-1 border-t border-white/5 bg-background/95 px-4 py-4 backdrop-blur-xl">
@@ -96,14 +81,6 @@ export function Navbar() {
               {item.label}
             </Link>
           ))}
-          <div className="pt-2">
-            <Button asChild className="w-full gap-2">
-              <Link href="/drops" onClick={() => setOpen(false)}>
-                <ShoppingBag className="h-4 w-4" />
-                Shop Drops
-              </Link>
-            </Button>
-          </div>
         </div>
       </div>
     </header>

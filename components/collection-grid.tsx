@@ -4,82 +4,54 @@ import { useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-import { renderableProducts } from "@/lib/products";
-import { site } from "@/lib/site";
+import { getProductsByAudience, type Product } from "@/lib/products";
+import { site, audienceLabel } from "@/lib/site";
+import type { SovrnAudience } from "@/lib/affiliate";
 
 type Props = {
-  initialAudience?: string;
-  initialBrand?: string;
+  audience: SovrnAudience;
 };
 
-const ALL = "all";
-
-export function DropsGrid({ initialAudience, initialBrand }: Props) {
-  const [audience, setAudience] = useState<string>(initialAudience ?? ALL);
-  const [brand, setBrand] = useState<string>(initialBrand ?? ALL);
+export function CollectionGrid({ audience }: Props) {
+  const [brand, setBrand] = useState<string>("all");
   const [query, setQuery] = useState("");
 
-  const audienceChips = [{ label: "All", value: ALL }, ...site.audiences];
-  const brandChips = [
-    { label: "All brands", value: ALL },
-    ...site.categories,
-  ];
+  // Strict: only products that belong to THIS audience (already renderable).
+  const audienceProducts = useMemo(
+    () => getProductsByAudience(audience),
+    [audience]
+  );
+
+  const brandChips = [{ label: "All brands", value: "all" }, ...site.categories];
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return renderableProducts.filter((p) => {
-      const matchAudience = audience === ALL || p.audience === audience;
-      const matchBrand = brand === ALL || p.brand === brand;
+    return audienceProducts.filter((p) => {
+      const matchBrand = brand === "all" || p.brand === brand;
       const matchQuery =
         !q ||
         p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.audience.toLowerCase().includes(q);
-      return matchAudience && matchBrand && matchQuery;
+        p.brand.toLowerCase().includes(q);
+      return matchBrand && matchQuery;
     });
-  }, [audience, brand, query]);
-
-  const activeAudienceLabel = audience === ALL ? "all" : audience;
+  }, [audienceProducts, brand, query]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-      {/* Audience filter (strict Men / Women / Kids) */}
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="mr-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-          Collection
-        </span>
-        {audienceChips.map((chip) => {
-          const activeChip = audience === chip.value;
-          return (
-            <button
-              key={chip.value}
-              onClick={() => setAudience(chip.value)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                activeChip
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-white/10 bg-white/5 text-muted-foreground hover:border-white/20 hover:text-foreground"
-              }`}
-            >
-              {chip.label}
-            </button>
-          );
-        })}
-      </div>
-
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Brand
           </span>
           {brandChips.map((chip) => {
-            const activeChip = brand === chip.value;
+            const active = brand === chip.value;
             return (
               <button
                 key={chip.value}
                 onClick={() => setBrand(chip.value)}
                 className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${
-                  activeChip
-                    ? "bg-foreground text-background"
+                  active
+                    ? "bg-primary text-primary-foreground"
                     : "border border-white/10 bg-white/5 text-muted-foreground hover:border-white/20 hover:text-foreground"
                 }`}
               >
@@ -94,7 +66,7 @@ export function DropsGrid({ initialAudience, initialBrand }: Props) {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search the drops…"
+            placeholder={`Search ${audienceLabel(audience)} drops…`}
             className="h-10 w-full rounded-full border border-white/10 bg-white/5 pl-9 pr-9 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
           />
           {query && (
@@ -109,25 +81,9 @@ export function DropsGrid({ initialAudience, initialBrand }: Props) {
         </div>
       </div>
 
-      <div className="mb-6 flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          {visible.length} {visible.length === 1 ? "drop" : "drops"}
-          {audience !== ALL && (
-            <>
-              {" "}for{" "}
-              <span className="capitalize text-foreground">{activeAudienceLabel}</span>
-            </>
-          )}
-          {brand !== ALL && (
-            <>
-              {" "}·{" "}
-              <span className="capitalize text-foreground">
-                {site.categories.find((c) => c.value === brand)?.label ?? brand}
-              </span>
-            </>
-          )}
-        </p>
-      </div>
+      <p className="mb-6 text-sm text-muted-foreground">
+        {visible.length} {visible.length === 1 ? "drop" : "drops"}
+      </p>
 
       {visible.length > 0 ? (
         <div
@@ -144,10 +100,12 @@ export function DropsGrid({ initialAudience, initialBrand }: Props) {
         <div className="rounded-2xl border border-dashed border-white/10 py-20 text-center">
           <p className="text-foreground">No drops match that.</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Try a different collection, brand, or clear your search.
+            Try a different brand or clear your search.
           </p>
         </div>
       )}
     </div>
   );
 }
+
+export type { Product };

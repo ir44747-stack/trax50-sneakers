@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product-card";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
@@ -17,13 +14,6 @@ export function FeaturedDrops() {
           </>
         }
         description="Curated from the @trax.50 feed. When it's here, it's verified — and moving fast."
-        action={
-          <Button asChild variant="outline" className="gap-2 border-white/15 bg-white/5 hover:bg-white/10">
-            <Link href="/drops">
-              View all drops <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        }
       />
 
       <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">

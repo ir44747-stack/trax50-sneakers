@@ -36,7 +36,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg" className="gap-2 px-7 py-6 text-base">
-              <Link href="/drops">
+              <Link href="/men">
                 Explore the drops <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

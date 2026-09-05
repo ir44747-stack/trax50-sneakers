@@ -25,11 +25,12 @@ export const site = {
     { label: "Adidas", value: "adidas" },
     { label: "New Balance", value: "new-balance" },
   ],
+  /** Strict navigation — ONLY Home, Men, Women, Kids. No filler links. */
   nav: [
     { label: "Home", href: "/" },
-    { label: "Drops", href: "/drops" },
-    { label: "Collections", href: "/#collections" },
-    { label: "About", href: "/#about" },
+    { label: "Men", href: "/men" },
+    { label: "Women", href: "/women" },
+    { label: "Kids", href: "/kids" },
   ],
   affiliateDisclaimer:
     "As an affiliate, Trax.50 earns from qualifying purchases. Prices and availability are accurate at the time of publishing and may change. All outbound links are monetized via Sovrn Commerce.",

@@ -1,12 +1,14 @@
 /**
  * TRAX.50 — Product catalog.
  *
- * Every product MUST satisfy BOTH rules enforced in this data layer:
- *   1. Belongs to a STRICT Men / Women / Kids audience (`audience` is required).
+ * Every product MUST satisfy BOTH strict rules enforced in this data layer:
+ *   1. Belongs to exactly one Men / Women / Kids audience (`audience` required).
  *   2. Carries a VALID Sovrn tracking URL (`affiliateUrl`) — never "#", never empty.
+ *   3. Carries a usable, non-empty image path (`image`).
  *
- * Products that fail either rule are excluded from what the UI renders
- * (see `renderableProducts` and `lib/affiliate.ts`).
+ * Products that fail ANY rule are DROPPED here (see `renderableProducts`) so no
+ * product, image or sneaker ever reaches the render layer without a valid
+ * affiliate tracking link and a valid image.
  *
  * NOTE ON DEMO LINKS: `affiliateUrl` is a well-formed Sovrn/VigLink URL that
  * points at a clearly-marked `shop.example.com` demo destination. Swap in your
@@ -15,7 +17,7 @@
 
 import {
   buildSovrnAffiliateUrl,
-  filterToRenderable,
+  isSovrnAffiliateUrlValid,
   type SovrnAudience,
 } from "@/lib/affiliate";
 
@@ -36,7 +38,7 @@ export type Product = {
   image: string;
   tag?: "HOT" | "DROP" | "RESTOCK" | "GRAIL";
   isNew?: boolean;
-  /** Real merchant/product page that Sovrn should affiliate (Phase 3: real URLs). */
+  /** Real merchant/product page that Sovrn should affiliate. */
   destinationUrl: string;
   /** Validated Sovrn tracking URL. Always set; see lib/affiliate.ts. */
   affiliateUrl: string;
@@ -127,15 +129,41 @@ const seeds: Seed[] = [
 /** Full source catalog (including any that may fail validation). */
 export const products: Product[] = seeds.map(seedToProduct);
 
-/**
- * STRICT-affiliate-filtered catalog.
- * Only products whose Sovrn tracking URL passes validation are shown.
- * A product without a valid link is DROPPED here — before the UI renders.
- */
-export const renderableProducts: Product[] =
-  filterToRenderable<Product>(products);
+/** A usable image is a non-empty local path ("/...") or an absolute http(s) URL. */
+export function isValidProductImage(image: string | undefined | null): boolean {
+  if (!image) return false;
+  const t = image.trim();
+  if (t.length === 0 || t === "#") return false;
+  if (t.startsWith("/")) return true; // local asset path under /public
+  try {
+    const url = new URL(t);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
 
-/** Catalog already constrained to renderable products (for featured/hero). */
+/**
+ * STRICT RULE — a product is renderable ONLY if it has BOTH a valid Sovrn
+ * affiliate tracking URL AND a valid image. Otherwise it is dropped.
+ */
+export function isRenderable(p: Product): boolean {
+  return isSovrnAffiliateUrlValid(p.affiliateUrl) && isValidProductImage(p.image);
+}
+
+/** Full catalog, pre-filtered to ONLY renderable products (strict rule). */
+export const renderableProducts: Product[] = products.filter(isRenderable);
+
+/** Strict catalog split into the three sections: Men / Women / Kids. */
+export function getProductsByAudience(audience: SovrnAudience): Product[] {
+  return renderableProducts.filter((p) => p.audience === audience);
+}
+
+export const menProducts = getProductsByAudience("men");
+export const womenProducts = getProductsByAudience("women");
+export const kidsProducts = getProductsByAudience("kids");
+
+/** Featured/hero product pool already constrained to renderable products. */
 export const featuredProducts = renderableProducts.filter(
   (p) => p.isNew || p.tag
 );

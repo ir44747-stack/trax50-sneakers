@@ -41,3 +41,12 @@
 - **Verified:** `npm run build` clean; `/drops?audience=men|women|kids` → 200; rendered "Cop it" anchors are valid `redirect.viglink.com` links with `rel="noopener noreferrer nofollow sponsored"`.
 - Updated `README.md`, `PROGRESS.md`, `AGENT_LOG.md`.
 - **PUSHED to `origin/main`** on `ir44747-stack/trax50-sneakers`.
+
+## [2026-09-05] — Clean Navigation + Strict categorization hardening
+- **Clean Navbar:** Nav is now ONLY **Home / Men / Women / Kids**. Removed the "Shop Drops" CTA button, the Instagram icon link, and the previous Home/Drops/Collections/About list. Mobile menu mirrors the same four links. Footer also cleaned: removed dead `#` placeholder links (X social, Privacy/Terms/Disclosure anchors) and the dead "Brands" column; only meaningful links remain.
+- **Strict categorization architecture:**
+  - Removed the generic `/drops` route; replaced with strict, dedicated SSG collection routes: `/men`, `/women`, `/kids` (`app/[audience]/page.tsx` + `components/collection-grid.tsx`). `generateStaticParams` restricts to exactly men/women/kids; anything else → 404.
+  - Each collection page renders ONLY products whose `audience` matches (verified: Men=3, Women=2, Kids=1, no cross-audience leak).
+  - Deleted `components/drops-grid.tsx` (old mixed/switchable grid). Repointed homepage CTA / featured / not-found links away from `/drops`.
+- **Strict Sovrn + image data-layer rule (`lib/products.ts`):** added `isValidProductImage` and `isRenderable` (valid Sovrn tracking URL AND valid image). `renderableProducts` now drops ANY product lacking a valid affiliate link OR a usable image; added `getProductsByAudience`, `menProducts`, `womenProducts`, `kidsProducts`.
+- Verified: clean `npm run build` (SSG routes `/men`,`/women`,`/kids`), all pages HTTP 200, rendered "Cop it" anchors are valid `redirect.viglink.com` links, all product images exist under `/public/images/`.

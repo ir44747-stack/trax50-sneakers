@@ -16,7 +16,7 @@ export default function NotFound() {
       </p>
       <div className="mt-8">
         <Button asChild size="lg">
-          <Link href="/drops">Back to the drops</Link>
+          <Link href="/men">Browse the drops</Link>
         </Button>
       </div>
     </div>
