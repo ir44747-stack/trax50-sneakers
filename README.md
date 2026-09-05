@@ -60,16 +60,49 @@ npm run lint        # ESLint
 
 ---
 
+## 🎯 Strict Categorization — Men / Women / Kids
+
+Every product belongs to exactly **one** audience: `men`, `women`, or `kids`
+(required field `audience`). The drops page and home collection tiles filter by
+these three buckets; brand is a secondary filter. No "unisex/other" escape hatch —
+each pair is placed strictly.
+
+## 🔗 Affiliate Monetization — Sovrn Commerce (strict)
+
+Trax.50 monetizes every outbound product click through **Sovrn Commerce**
+(VigLink gateway). Links follow Sovrn's manual-wrap format:
+
+```
+https://redirect.viglink.com?key=[API_KEY]&u=[HTML-ENCODED_DESTINATION]
+```
+
+**STRICT RULE — no product renders without a valid tracking link.**
+`lib/affiliate.ts` validates every product's `affiliateUrl` against the Sovrn
+spec. A product is dropped from the UI (home, featured, drops grid) if its link:
+is missing, empty, a bare `#`, relative, non-HTTPS, not on `redirect.viglink.com`,
+or lacks a valid `key` + `u` destination. Enforcement lives in two places:
+1. **Data layer** — `renderableProducts` filters the catalog before rendering.
+2. **UI guard** — `ProductCard` returns nothing if a link fails validation.
+
+All affiliate anchors use `rel="noopener noreferrer nofollow sponsored"`.
+
+> **Going live:** set `SOVRN_PUBLISHER_KEY` to your real Sovrn API key and replace
+> the demo `shop.example.com` `destinationUrl` values in `lib/products.ts` with
+> real merchant product URLs. Until then a clearly-marked **demo key** is used so
+> the pipeline stays testable.
+
+---
+
 ## 🗺️ Roadmap (Phases)
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| **Phase 0** | Project Setup & Documentation | 🔄 In Progress |
-| **Phase 1** | Branding & Logo Assets | ⬜ Pending |
-| **Phase 2** | Core Website UI (Next.js + Tailwind) | ⬜ Pending |
-| **Phase 3** | Products Data & Affiliate Link Tracking | ⬜ Pending |
+| **Phase 0** | Project Setup & Documentation | ✅ Completed |
+| **Phase 1** | Branding & Logo Assets | ✅ Completed |
+| **Phase 2** | Core Website UI (Next.js + Tailwind) | ✅ Completed |
+| **Phase 3** | Products Data & Affiliate Link Tracking | 🔄 In Progress (Men/Women/Kids + Sovrn strict validation shipped) |
 | **Phase 4** | SEO, Open Graph & Content | ⬜ Pending |
-| **Phase 5** | Deployment & Domain Setup | ⬜ Pending |
+| **Phase 5** | Deployment & Domain Setup | 🔄 In Progress (Vercel; push enabled) |
 
 > **Live status is tracked in [`PROGRESS.md`](./PROGRESS.md).**
 
@@ -82,11 +115,16 @@ trax50-sneakers/
 ├── app/                # Next.js App Router pages & layouts
 │   ├── layout.tsx      # Root layout
 │   ├── page.tsx        # Homepage
-│   └── globals.css     # Global styles
+│   ├── drops/          # Drops catalog (audience + brand filters)
+│   ├── not-found.tsx   # Custom 404
+│   └── globals.css     # Global styles / design system
 ├── components/         # Reusable UI components (shadcn/ui + custom)
-├── lib/                # Utilities, types, config
-├── public/             # Static assets (favicon, images, fonts)
-├── data/               # Products / affiliate link data (Phase 3)
+├── lib/
+│   ├── affiliate.ts    # Sovrn link builder + STRICT validation (core rule)
+│   ├── products.ts     # Catalog (audience + validated Sovrn affiliateUrl)
+│   ├── site.ts         # Brand/config + audiences taxonomy
+│   └── utils.ts
+├── public/images/      # Hero + product imagery
 ├── README.md           # ← You are here
 ├── PROGRESS.md         # Phase-by-phase progress tracker
 └── AGENT_LOG.md        # Chronological agent action log
@@ -113,10 +151,11 @@ Conventional commit prefix examples: `feat:`, `fix:`, `chore:`, `docs:`, `refact
 
 ## 🏁 Status
 
-- **Current phase:** Phase 0 (Project Setup & Documentation)
+- **Current phase:** Phase 3 (Products Data & Affiliate Link Tracking — strict categorization + Sovrn validation)
 - **Status:** see [`PROGRESS.md`](./PROGRESS.md)
+- **Production repo:** `github.com/ir44747-stack/trax50-sneakers` (pushed to `main`)
 
 <!--
 Author: Trax.50 AI Agent
-Repos owned/maintained by: [GitHub owner — to be added]
+Repos owned/maintained by: ir44747-stack
 -->

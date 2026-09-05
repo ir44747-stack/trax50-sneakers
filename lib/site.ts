@@ -12,6 +12,13 @@ export const site = {
   url: "https://trax50.example.com", // TODO Phase 5: production domain
   instagramUrl: "https://instagram.com/trax.50",
   instagramFollowers: "161K",
+  /** STRICT Men / Women / Kids taxonomy — every product must belong to one. */
+  audiences: [
+    { value: "men", label: "Men", plural: "Men" },
+    { value: "women", label: "Women", plural: "Women" },
+    { value: "kids", label: "Kids", plural: "Kids" },
+  ],
+  /** Secondary brand taxonomy used for brand filtering/search. */
   categories: [
     { label: "Jordan", value: "jordan" },
     { label: "Nike", value: "nike" },
@@ -21,11 +28,11 @@ export const site = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Drops", href: "/drops" },
-    { label: "Categories", href: "/#categories" },
+    { label: "Collections", href: "/#collections" },
     { label: "About", href: "/#about" },
   ],
   affiliateDisclaimer:
-    "As an affiliate, Trax.50 earns from qualifying purchases. Prices and availability are accurate at the time of publishing and may change.",
+    "As an affiliate, Trax.50 earns from qualifying purchases. Prices and availability are accurate at the time of publishing and may change. All outbound links are monetized via Sovrn Commerce.",
 } as const;
 
 export const formatPrice = (price: number, currency = "USD") =>
@@ -34,3 +41,10 @@ export const formatPrice = (price: number, currency = "USD") =>
     currency,
     maximumFractionDigits: 0,
   }).format(price);
+
+/** Look up the human label for an audience value (falls back to capitalized). */
+export function audienceLabel(value: string): string {
+  const found = site.audiences.find((a) => a.value === value);
+  if (found) return found.label;
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}

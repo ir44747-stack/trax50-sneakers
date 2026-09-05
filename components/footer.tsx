@@ -7,13 +7,17 @@ export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-black/40">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+        <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div className="max-w-xs">
             <Link href="/" aria-label="Trax.50 home">
               <Logo />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {site.description}
+            </p>
+            <p className="mt-4 text-xs text-muted-foreground/70">
+              Curated drops for {site.handle}&apos;s {site.instagramFollowers}
+              -strong community. Built mobile-first for the culture.
             </p>
             <div className="mt-5 flex items-center gap-2">
               <a
@@ -37,16 +41,24 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-foreground">
-              Explore
+              Collections
             </h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              {site.nav.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="transition-colors hover:text-primary">
-                    {item.label}
+              {site.audiences.map((a) => (
+                <li key={a.value}>
+                  <Link
+                    href={`/drops?audience=${a.value}`}
+                    className="transition-colors hover:text-primary"
+                  >
+                    {a.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/drops" className="transition-colors hover:text-primary">
+                  All drops
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -70,12 +82,17 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-foreground">
-              The movement
+              Explore
             </h3>
-            <p className="text-sm text-muted-foreground">
-              Curated drops for {site.handle}&apos;s {site.instagramFollowers}
-              -strong community. Built mobile-first for the culture.
-            </p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              {site.nav.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="transition-colors hover:text-primary">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
