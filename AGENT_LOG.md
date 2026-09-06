@@ -71,3 +71,21 @@
 - Regenerated `public/images/prod-1..6.jpg` as stylized studio renders of each real model/colorway (note to swap for official merchant imagery at go-live). Aligned homepage hero "featured grail" copy to the real AJ1 "Chicago Lost & Found".
 - Removed all `shop.example.com` references; updated README go-live note.
 - Verified: clean build (real key); `/`, `/men`, `/women`, `/kids` → 6/3/2/1 real product cards, each with a real-key Sovrn link pointing to a real StockX destination.
+
+## [2026-09-06] — Catalog expansion batch 2: 10 new real products (trax-011…020, all Men)
+- Appended 10 real, gender-accurate StockX products to `lib/products.ts`, mapped to newly generated renders `prod-11…20.jpg`:
+  - trax-011 AJ4 Retro "Bred Reimagined" (2024) → stockx.com/air-jordan-4-retro-bred-reimagined ($215)
+  - trax-012 NB 990v6 MiUSA "Grey Day" (2023) → new-balance-990v6-miusa-teddy-santis-marblehead-vintage-indigo ($220)
+  - trax-013 ASICS Gel-Kayano 14 "Black/Cream" → asics-gel-kayano-14-black-cream ($170)
+  - trax-014 Salomon XT-6 "Vanilla Ice / Black / Silver Cloud" → salomon-xt-6-vanilla-ice-black-silver-cloud ($185)
+  - trax-015 AJ11 Retro DMP "Gratitude" (2023) → air-jordan-11-retro-dmp-defining-moments-2023 ($230)
+  - trax-016 NB 550 "White/Green" → new-balance-550-white-green ($120)
+  - trax-017 ASICS Gel-Lyte III Remastered "Kith Seoul" → asics-gel-lyte-iii-remastered-kith-seoul ($195)
+  - trax-018 Salomon ACS Pro Advanced "Black/Grey" → salomon-acs-pro-advanced-black-grey ($230)
+  - trax-019 AJ1 Retro High "Shattered Backboard 3.0" → air-jordan-1-retro-high-shattered-backboard-3 ($160)
+  - trax-020 NB 990v3 MiUSA "Joe Freshgoods Outside Clothes" → new-balance-990v3-joe-freshgoods-outside-clothes ($220)
+- Extended `Brand` union + `site.categories` with `asics` and `salomon` so the new chips/typing stay valid.
+- Every seed flows through `seedToProduct` → `buildSovrnAffiliateUrl(destinationUrl)`; no image/URL invented, all slugs validated against live StockX pages this turn (fetch).
+- All 10 validated listings are labeled Men's on StockX, so the batch is assigned to Men (no mislabeling). Audience now: Men 13, Women 2, Kids 1 (total renderable 16).
+- Strict audit on served HTML (real key `21216f6…`): /men=13, /women=2, /kids=1 product cards; every "Cop it" anchor = `redirect.viglink.com/?key=<real key>` to a StockX dest; **demo=0, bare `#`=0, other-host=0**. `npm run build` clean.
+- NOTE: Women/Kids remain thin (2/1). The interrupted full-expansion task (which adds more Women's/GS shoes with matched renders) is the standing next step to enrich those sections.

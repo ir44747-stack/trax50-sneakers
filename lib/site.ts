@@ -24,6 +24,8 @@ export const site = {
     { label: "Nike", value: "nike" },
     { label: "Adidas", value: "adidas" },
     { label: "New Balance", value: "new-balance" },
+    { label: "ASICS", value: "asics" },
+    { label: "Salomon", value: "salomon" },
   ],
   /** Strict navigation — ONLY Home, Men, Women, Kids. No filler links. */
   nav: [

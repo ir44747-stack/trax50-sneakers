@@ -49,6 +49,13 @@
 - [x] **Strict data-layer rule:** `renderableProducts` now drops products lacking a valid Sovrn tracking URL OR a valid image (`isRenderable`). Added `getProductsByAudience`, `menProducts`, `womenProducts`, `kidsProducts`.
 - [x] Verified: build clean; pages 200; no cross-audience leak (Men=3, Women=2, Kids=1).
 
+## Phase 3 — Catalog expansion batch 2 (10 more real Men's products)
+- [x] Appended trax-011…020 to `lib/products.ts` (10 real, live StockX products, all validated via fetch this turn): AJ4 Bred Reimagined, NB 990v6 Grey Day, ASICS Gel-Kayano 14, Salomon XT-6 Vanilla Ice, AJ11 Gratitude, NB 550 White/Green, ASICS Kith Gel-Lyte III, Salomon ACS Pro, AJ1 Shattered Backboard 3.0, NB 990v3 JFG.
+- [x] Mapped to new renders `prod-11…20.jpg`; extended `Brand` union + `site.categories` with `asics` & `salomon`.
+- [x] Audience (all listings are Men's on StockX → Men): total renderable = **16** (Men 13, Women 2, Kids 1).
+- [x] Strict audit on served HTML (real key): Men=13 / Women=2 / Kids=1 cards; each Cop-it = `redirect.viglink.com/?key=<real>` → StockX; **demo=0, bare `#`=0, other-host=0**. Build clean.
+- [ ] **Women/Kids enrichment is PENDING** (interrupted full-expansion task): add more real Women's/GS shoes with matched renders so /women & /kids grow beyond 2/1.
+
 ## Phase 3 — Production Sovrn key wiring
 - [x] `lib/affiliate.ts` reads `SOVRN_PUBLISHER_KEY` from env; added `isUsingDemoKey()` + `assertProductionKeyConfigured()` demo-key warning (build-time safeguard).
 - [x] `.env.example` documents `SOVRN_PUBLISHER_KEY` (API key) + optional `SOVRN_API_SECRET` (kept out of code). No secrets committed.

@@ -2,7 +2,7 @@
 
 **Affiliate website for luxury & streetwear sneakers**, monetizing traffic from the **[@trax.50](https://instagram.com/trax.50)** Instagram account (161K followers).
 
-Trax.50 connects a large streetwear/sneakerhead audience with the hottest drops — Nike, Jordan, Adidas, New Balance, and more — and earns affiliate commissions when followers discover and buy through our curated product links.
+Trax.50 connects a large streetwear/sneakerhead audience with the hottest drops — Nike, Jordan, Adidas, New Balance, Nike, Jordan, Adidas, New Balance, ASICS, and Salomon — and earns affiliate commissions when followers discover and buy through our curated product links.
 
 ---
 

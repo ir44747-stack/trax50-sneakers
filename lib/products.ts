@@ -30,6 +30,8 @@ export type Brand =
   | "nike"
   | "adidas"
   | "new-balance"
+  | "asics"
+  | "salomon"
   | "luxury";
 
 export type Product = {
@@ -127,6 +129,130 @@ const seeds: Seed[] = [
     image: `${ASSET}/prod-6.jpg`,
     tag: "HOT",
     destinationUrl: "https://stockx.com/air-jordan-1-mid-panda-womens",
+  },
+  {
+    id: "trax-011",
+    name: "Air Jordan 4 Retro 'Bred Reimagined' (2024)",
+    brand: "jordan",
+    audience: "men",
+    price: 215,
+    currency: "USD",
+    image: `${ASSET}/prod-11.jpg`,
+    tag: "DROP",
+    isNew: true,
+    destinationUrl:
+      "https://stockx.com/air-jordan-4-retro-bred-reimagined",
+  },
+  {
+    id: "trax-012",
+    name: "New Balance 990v6 MiUSA 'Grey Day' (2023)",
+    brand: "new-balance",
+    audience: "men",
+    price: 220,
+    currency: "USD",
+    image: `${ASSET}/prod-12.jpg`,
+    tag: "RESTOCK",
+    isNew: true,
+    destinationUrl:
+      "https://stockx.com/new-balance-990v6-miusa-teddy-santis-marblehead-vintage-indigo",
+  },
+  {
+    id: "trax-013",
+    name: "ASICS Gel-Kayano 14 'Black/Cream'",
+    brand: "asics",
+    audience: "men",
+    price: 170,
+    currency: "USD",
+    image: `${ASSET}/prod-13.jpg`,
+    tag: "HOT",
+    isNew: true,
+    destinationUrl: "https://stockx.com/asics-gel-kayano-14-black-cream",
+  },
+  {
+    id: "trax-014",
+    name: "Salomon XT-6 'Vanilla Ice / Black / Silver Cloud'",
+    brand: "salomon",
+    audience: "men",
+    price: 185,
+    currency: "USD",
+    image: `${ASSET}/prod-14.jpg`,
+    tag: "HOT",
+    isNew: true,
+    destinationUrl:
+      "https://stockx.com/salomon-xt-6-vanilla-ice-black-silver-cloud",
+  },
+  {
+    id: "trax-015",
+    name: "Air Jordan 11 Retro DMP 'Gratitude' (2023)",
+    brand: "jordan",
+    audience: "men",
+    price: 230,
+    currency: "USD",
+    image: `${ASSET}/prod-15.jpg`,
+    tag: "GRAIL",
+    destinationUrl:
+      "https://stockx.com/air-jordan-11-retro-dmp-defining-moments-2023",
+  },
+  {
+    id: "trax-016",
+    name: "New Balance 550 'White/Green'",
+    brand: "new-balance",
+    audience: "men",
+    price: 120,
+    currency: "USD",
+    image: `${ASSET}/prod-16.jpg`,
+    tag: "HOT",
+    isNew: true,
+    destinationUrl: "https://stockx.com/new-balance-550-white-green",
+  },
+  {
+    id: "trax-017",
+    name: "ASICS Gel-Lyte III Remastered 'Kith Seoul'",
+    brand: "asics",
+    audience: "men",
+    price: 195,
+    currency: "USD",
+    image: `${ASSET}/prod-17.jpg`,
+    tag: "DROP",
+    isNew: true,
+    destinationUrl:
+      "https://stockx.com/asics-gel-lyte-iii-remastered-kith-seoul",
+  },
+  {
+    id: "trax-018",
+    name: "Salomon ACS Pro Advanced 'Black/Grey'",
+    brand: "salomon",
+    audience: "men",
+    price: 230,
+    currency: "USD",
+    image: `${ASSET}/prod-18.jpg`,
+    tag: "DROP",
+    isNew: true,
+    destinationUrl: "https://stockx.com/salomon-acs-pro-advanced-black-grey",
+  },
+  {
+    id: "trax-019",
+    name: "Air Jordan 1 Retro High 'Shattered Backboard 3.0'",
+    brand: "jordan",
+    audience: "men",
+    price: 160,
+    currency: "USD",
+    image: `${ASSET}/prod-19.jpg`,
+    tag: "GRAIL",
+    destinationUrl:
+      "https://stockx.com/air-jordan-1-retro-high-shattered-backboard-3",
+  },
+  {
+    id: "trax-020",
+    name: "New Balance 990v3 'Joe Freshgoods Outside Clothes'",
+    brand: "new-balance",
+    audience: "men",
+    price: 220,
+    currency: "USD",
+    image: `${ASSET}/prod-20.jpg`,
+    tag: "DROP",
+    destinationUrl:
+      "https://stockx.com/new-balance-990v3-joe-freshgoods-outside-clothes",
   },
 ];
 
