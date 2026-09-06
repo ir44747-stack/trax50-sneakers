@@ -74,3 +74,7 @@
 ## Deployment note
 - Vercel target (`next build` clean). Repo reconciled to a single clean root tree and **pushed to `main`** on `ir44747-stack/trax50-sneakers`.
 - ⚠️ Cleanup: earlier web-UI uploads nested duplicate copies under `work/` and `trax50-sneakers/` plus `trax50-sneakers.zip` in the repo — removed in the reconcile commit.
+## Phase 3 — Catalog expansion batch 4 (trax-031…035 → 31 renderable)
+- [x] Added 5 more real products + renders prod-31…35 (Men +3: AF1 '07 White, NB 9060 Black Castlerock, Salomon XT-6 Vanilla Ice Almond Milk; Women +2: adidas Samba OG CW/CB W, NB 550 White Rain Cloud W).
+- [x] Audience now **Men 21 / Women 6 / Kids 4 = 31**. Build clean; audit real-key, demo=0, bare #=0.
+- [ ] Scaling to ~36-50 continues (multi-turn: generate renders + validate real slugs per pass).

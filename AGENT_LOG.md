@@ -98,3 +98,10 @@
 - Renderable catalog now 26 (Men 18 / Women 4 / Kids 4); improves the previously-thin Women/Kids sections.
 - `npm run build` clean; strict served-HTML audit: /men=18 /women=4 /kids=4 cards, every Cop-it link = redirect.viglink.com/?key=<real key> → StockX, demo=0, bare '#'=0.
 - NOTE: full 36-50 target is NOT yet reached. Remaining expansion requires more turns to generate matched renders + validate additional real StockX slugs truthfully (no fabrication). prod-7..10 exist but are unmapped/unidentified (no vision to confirm they match a shoe).
+
+## [2026-09-06] — Catalog expansion batch 4 (trax-031…035) → 31 renderable
+- Added 5 more real StockX products with matched renders prod-31…35:
+  - Men (3): trax-031 Nike AF1 Low '07 White (nike-air-force-1-low-white-07); trax-032 NB 9060 Black Castlerock Grey; trax-033 Salomon XT-6 Vanilla Ice Almond Milk.
+  - Women (2): trax-034 adidas Samba OG Cloud White Core Black (W); trax-035 NB 550 White Rain Cloud (W) (slug fetch-confirmed live).
+- Skipped Nike Air Max 90 Triple White (W) — slug returned StockX 404 (verified, not guessed).
+- Audience now Men 21 / Women 6 / Kids 4 = 31 renderable. Build clean; audit: real-key on every Cop-it, demo=0, bare #=0.
