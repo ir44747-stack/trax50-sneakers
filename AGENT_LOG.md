@@ -89,3 +89,12 @@
 - All 10 validated listings are labeled Men's on StockX, so the batch is assigned to Men (no mislabeling). Audience now: Men 13, Women 2, Kids 1 (total renderable 16).
 - Strict audit on served HTML (real key `21216f6…`): /men=13, /women=2, /kids=1 product cards; every "Cop it" anchor = `redirect.viglink.com/?key=<real key>` to a StockX dest; **demo=0, bare `#`=0, other-host=0**. `npm run build` clean.
 - NOTE: Women/Kids remain thin (2/1). The interrupted full-expansion task (which adds more Women's/GS shoes with matched renders) is the standing next step to enrich those sections.
+
+## [2026-09-06] — Catalog expansion batch 3: +10 validated products (trax-021…030) → 26 total
+- Added 10 more REAL products, each paired with a freshly generated studio render (prod-21…30) and a live, validated StockX destination (no fabricated slugs):
+  - Men (5): trax-021 adidas Samba OG Black White Gum; trax-022 adidas Gazelle 85 Core Black/Footwear White; trax-023 ASICS Gel-Kayano 14 White Pure Silver; trax-024 Salomon XT-6 Lunar Rock Magnet Lime; trax-025 NB 2002R Protection Pack Sea Moss Raincloud.
+  - Kids (3): trax-026 adidas Samba OG Black White Gum (GS); trax-027 NB 9060 Castlerock (GS); trax-030 NB 990v3 Grey (GS).
+  - Women (2): trax-028 NB 550 White Incense (W); trax-029 NB 550 White Lilac (W).
+- Renderable catalog now 26 (Men 18 / Women 4 / Kids 4); improves the previously-thin Women/Kids sections.
+- `npm run build` clean; strict served-HTML audit: /men=18 /women=4 /kids=4 cards, every Cop-it link = redirect.viglink.com/?key=<real key> → StockX, demo=0, bare '#'=0.
+- NOTE: full 36-50 target is NOT yet reached. Remaining expansion requires more turns to generate matched renders + validate additional real StockX slugs truthfully (no fabrication). prod-7..10 exist but are unmapped/unidentified (no vision to confirm they match a shoe).

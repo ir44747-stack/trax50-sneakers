@@ -56,6 +56,11 @@
 - [x] Strict audit on served HTML (real key): Men=13 / Women=2 / Kids=1 cards; each Cop-it = `redirect.viglink.com/?key=<real>` → StockX; **demo=0, bare `#`=0, other-host=0**. Build clean.
 - [ ] **Women/Kids enrichment is PENDING** (interrupted full-expansion task): add more real Women's/GS shoes with matched renders so /women & /kids grow beyond 2/1.
 
+## Phase 3 — Catalog expansion batch 3 (trax-021…030 → 26 renderable)
+- [x] Added 10 more real, live StockX products with freshly generated renders prod-21…30 (Men +5: Samba BW Gum, Gazelle 85 CB/FW, Kayano 14 White Pure Silver, Salomon XT-6 Lunar Rock Magnet Lime, NB 2002R Sea Moss; Kids +3: Samba BW Gum GS, NB 9060 Castlerock GS, NB 990v3 Grey GS; Women +2: NB 550 White Incense, NB 550 White Lilac).
+- [x] Audience now **Men 18 / Women 4 / Kids 4 = 26** renderable (was 16). All Cop-it links real-key → StockX; demo=0, bare `#`=0; build clean.
+- [ ] **Remaining:** full ~36-50 target still pending — needs more matched renders + validated real slugs (multi-turn; no fabrication). prod-7..10 unmapped (unidentified).
+
 ## Phase 3 — Production Sovrn key wiring
 - [x] `lib/affiliate.ts` reads `SOVRN_PUBLISHER_KEY` from env; added `isUsingDemoKey()` + `assertProductionKeyConfigured()` demo-key warning (build-time safeguard).
 - [x] `.env.example` documents `SOVRN_PUBLISHER_KEY` (API key) + optional `SOVRN_API_SECRET` (kept out of code). No secrets committed.
