@@ -78,3 +78,7 @@
 - [x] Added 5 more real products + renders prod-31…35 (Men +3: AF1 '07 White, NB 9060 Black Castlerock, Salomon XT-6 Vanilla Ice Almond Milk; Women +2: adidas Samba OG CW/CB W, NB 550 White Rain Cloud W).
 - [x] Audience now **Men 21 / Women 6 / Kids 4 = 31**. Build clean; audit real-key, demo=0, bare #=0.
 - [ ] Scaling to ~36-50 continues (multi-turn: generate renders + validate real slugs per pass).
+## Phase 3 — Catalog expansion batch 5 (trax-036…040 → 36 renderable ✅ target)
+- [x] Added 5 more real products + renders prod-36…40 (Kids +2: AM90 Recraft TW GS, NB 550 White Burgundy Navy GS; Men +3: ASICS Kayano 14 Black Lemon Spark, Nike AM90 Triple White, NB 550 White Grey Dark Grey).
+- [x] Audience now **Men 24 / Women 6 / Kids 6 = 36 renderable** (target ~36 reached). Build clean; audit real-key, demo=0, bare #=0.
+- [ ] Optional further scale to ~40-50 in future passes (validate slugs + generate renders per pass).

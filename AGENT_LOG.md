@@ -105,3 +105,9 @@
   - Women (2): trax-034 adidas Samba OG Cloud White Core Black (W); trax-035 NB 550 White Rain Cloud (W) (slug fetch-confirmed live).
 - Skipped Nike Air Max 90 Triple White (W) — slug returned StockX 404 (verified, not guessed).
 - Audience now Men 21 / Women 6 / Kids 4 = 31 renderable. Build clean; audit: real-key on every Cop-it, demo=0, bare #=0.
+
+## [2026-09-06] — Catalog expansion batch 5 (trax-036…040) → 36 renderable (target reached)
+- Added 5 more real StockX products with renders prod-36…40:
+  - Kids (2): trax-036 Nike Air Max 90 Recraft Triple White (GS); trax-037 NB 550 White Burgundy Navy (GS).
+  - Men (3): trax-038 ASICS Gel-Kayano 14 Black Lemon Spark; trax-039 Nike Air Max 90 Triple White (air-max-90-triple-white); trax-040 NB 550 White Grey Dark Grey.
+- Audience now Men 24 / Women 6 / Kids 6 = **36 renderable** (meets the ~36+ target). Build clean; audit real-key on every Cop-it, demo=0, bare #=0. All slugs validated live this turn.
