@@ -111,3 +111,29 @@
   - Kids (2): trax-036 Nike Air Max 90 Recraft Triple White (GS); trax-037 NB 550 White Burgundy Navy (GS).
   - Men (3): trax-038 ASICS Gel-Kayano 14 Black Lemon Spark; trax-039 Nike Air Max 90 Triple White (air-max-90-triple-white); trax-040 NB 550 White Grey Dark Grey.
 - Audience now Men 24 / Women 6 / Kids 6 = **36 renderable** (meets the ~36+ target). Build clean; audit real-key on every Cop-it, demo=0, bare #=0. All slugs validated live this turn.
+
+## [2026-09-06] — UX fixes: real-time header search + whole-card affiliate links
+- **Header global search (GlobalSearch):** added `components/global-search.tsx`, a real-time combobox that searches the ENTIRE catalog (Men/Women/Kids, all brands) by name/model/brand as you type, with keyboard nav, empty state, outside-click/Esc close. Each hit is a real anchor to its validated Sovrn URL (opens StockX in a new tab). Integrated into `Navbar` (md+).
+- **Key-data correctness:** search + collection grids no longer import `lib/products.ts` on the client (which would re-evaluate seedToProduct with whatever key the client bundle has). Added a server-computed, serializable `searchIndex` in `lib/products.ts`; `layout.tsx` passes it to `Navbar`, and `/men|women|kids` pages pass server-computed `products` into `CollectionGrid`. All affiliate URLs stay real-key.
+- **ProductCard rewrite:** the whole card is now a single real `<a href={buyUrl} target="_blank" rel="noopener noreferrer nofollow sponsored">` to the Sovrn URL — clicking anywhere (image/title/price/"Cop it") reliably opens StockX in a new tab. Removed nested Link & blocking overlay; "Cop it" is now a non-interactive span inside the same anchor. Reveal verified as non-blocking (animation only).
+- **Verified:** clean `npm run build`; served audit /home=36 cards, /men=24, /women=6, /kids=6 whole-card anchors; header search input present on all pages; **demo=0, bare '#'=0**, real-key links everywhere.
+
+## [2026-09-06] — Smart / fuzzy search + catalog data-mapping audit
+- Added `lib/search.ts` (pure, browser-safe): case/accent/punctuation-insensitive normalize; alias expansion ("af1"->Air Force 1, "aj1/4/11", "am90"/"am1", "nb", "jfg", "sbb", "k14"/"kayano", "xt6", model codes); partial-word + prefix + small typo tolerance; relevance scoring. No server-only imports.
+- `GlobalSearch` now pre-builds per-product haystacks once and scores live keystrokes (not simple substring case-sensitive).
+- Behavioral checks (Node replica) passed: "AF1"/"af 1"->AF1; "dun"/"duNk"->Dunk; "gaz"->Gazelle; "xt6"/"XT 6"/"xt"->XT-6; "kayano"/"k14"; "sbb"/"Shattered"; "550"/"990"->model matches; "AM90"/"aj4"/"jfg"; brand queries; false positives avoided for short aliases (e.g. "am" not matching "samba").
+- Data-layer audit of lib/products.ts: brand/title/audience/destination slug are internally consistent for all 36 products (id/name/brand/audience/image/destination cross-checked). Build clean.
+
+## [2026-09-07] — Price parity audit vs live StockX market (all 36 products)
+- Re-verified every product's StockX destination page live and set each `price` to the **real market value** (lowest "Buy Now" ask where the page rendered one).
+- Live-ask updates (Buy Now): trax-001 $58, 002 $60, 003 $60, 004 $167, 006 $72, 011 $203 (AJ4 Bred Reimagined), 012 $157, 013 $117, 014 $189, 015 $227, 016 $65, 017 $143, 018 $213, 019 $209, 020 $224, 021 $62, 023 $146, 026 $59, 028 $41, 029 $79, 031 $74, 032 $76, 033 $140, 034 $55, 035 $61, 036 $72, 038 $107, 039 $275 (AM90 TW, scarce), 040 $57.
+- Last-sale fallback (no ask server-rendered; per user choice): trax-030 NB 990v3 Grey GS $146; trax-037 NB 550 White Burgundy Navy GS $125.
+- Kept at retail where StockX shows no ask/last-sale (low-liquidity GS/niche): trax-005 Dunk Panda GS $85, 022 Gazelle 85 $130, 024 XT-6 Lunar Rock $190, 025 NB 2002R Sea Moss Raincloud $194, 027 9060 Castlerock GS $110.
+- trax-025 destination slug re-confirmed as the real StockX Sea Moss Raincloud page (M20028ZH, retail $194); NO product substitution made.
+- Verified: clean real-key `npm run build`; served audit /men shows valid Viglink/Sovrn affiliate URLs (real publisher key at runtime) and updated prices; counts unchanged 36/24/6/6.
+
+## [2026-09-07] — Image overhaul: studio renders -> OFFICIAL StockX product images (all 36) + price guardrail
+- Replaced every active product's card image (public/images/prod-*.jpg) with its **official StockX product image**, downloaded from images.stockx.com (flat white-bg `images.stockx.com/images/<Product>-Product.jpg`, 600x400, matched to each destination slug). Resolved canonical asset names per product (brands casing varies: adidas/Salomon lowercased first token, "ASICS"/"New Balance"/"Nike" capitalized, model tokens like OG/GS/XT/ACS/PRO/DMP/MiUSA handled). Every file verified as a valid JPEG; 36/36 active product images present.
+- Data re-audited: id/name/brand/audience/destination/price/image all consistent; prices stay at the live-market values set in the prior parity commit.
+- trax-039 (Nike AM90 Triple White) price corrected $275 -> **$120** — the $275 capture was a "Only 2 Left" size artifact (retail is $120); this removes the one inflated outlier. trax-018 ACS Pro uses the official StockX 360 page photo (no flat product asset exists on the CDN).
+- Clean real-key build; served counts unchanged 36/24/6/6.

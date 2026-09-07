@@ -54,7 +54,7 @@ export default async function CollectionPage({ params }: { params: Params }) {
           {products.length} {products.length === 1 ? "drop" : "drops"} live
         </p>
       </header>
-      <CollectionGrid audience={aud} />
+      <CollectionGrid audience={aud} products={products} />
     </div>
   );
 }

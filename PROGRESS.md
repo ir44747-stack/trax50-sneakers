@@ -82,3 +82,17 @@
 - [x] Added 5 more real products + renders prod-36…40 (Kids +2: AM90 Recraft TW GS, NB 550 White Burgundy Navy GS; Men +3: ASICS Kayano 14 Black Lemon Spark, Nike AM90 Triple White, NB 550 White Grey Dark Grey).
 - [x] Audience now **Men 24 / Women 6 / Kids 6 = 36 renderable** (target ~36 reached). Build clean; audit real-key, demo=0, bare #=0.
 - [ ] Optional further scale to ~40-50 in future passes (validate slugs + generate renders per pass).
+## UX fixes — real-time header search + whole-card affiliate links
+- [x] **Global header search** (`components/global-search.tsx` + Navbar): real-time full-catalog search by name/model/brand; keyboard nav; each hit opens its Sovrn link (new tab).
+- [x] **Correct key plumbing:** server-computed `searchIndex` (products.ts) fed to Navbar via layout; collection grids receive server `products` prop instead of re-importing products.ts on the client (prevents demo-key recompute).
+- [x] **ProductCard:** entire card = single real Sovrn anchor (new tab), no nested links/overlay; "Cop it" part of the same anchor.
+- [x] Build clean; audit real-key, demo=0, bare #=0; counts 36/24/6/6.
+## Phase 4 — Full price parity audit vs live StockX (all 36)
+- [x] Re-fetched every product's StockX destination page; set each card `price` to the live market value.
+- [x] Live lowest-ask applied for 30 products; last-sale fallback (user-chosen) for 2 (trax-030 $146, trax-037 $125); kept at retail for 4 low-liquidity GS/niche (trax-005/022/024/027) + trax-025 (no market; retail $194 = real Sea Moss Raincloud M20028ZH).
+- [x] Clean real-key build; served audit: valid Viglink/Sovrn URLs (real runtime key), updated prices render; counts 36/24/6/6.
+- [ ] Standing: replace studio renders (public/images/prod-*.jpg) with official StockX product images to match each title/brand/link (user-chosen; not yet done).
+## Phase 5 — Official image replacement (all 36) + AM90 price guardrail
+- [x] Replaced all studio renders with official StockX product images (images.stockx.com) matched per destination; 36/36 valid JPEGs.
+- [x] trax-039 AM90 Triple White price fixed to $120 (removed inflated $275 size artifact).
+- [x] Clean real-key build; counts 36/24/6/6.

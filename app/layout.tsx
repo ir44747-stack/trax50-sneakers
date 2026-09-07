@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { searchIndex } from "@/lib/products";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -57,7 +58,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} font-sans`}
       >
-        <Navbar />
+        <Navbar catalog={searchIndex} />
         <main className="min-h-[70vh]">{children}</main>
         <Footer />
       </body>

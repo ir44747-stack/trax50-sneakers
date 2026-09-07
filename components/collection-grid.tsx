@@ -4,23 +4,23 @@ import { useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-import { getProductsByAudience, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import { site, audienceLabel } from "@/lib/site";
 import type { SovrnAudience } from "@/lib/affiliate";
 
 type Props = {
   audience: SovrnAudience;
+  /** Server-computed products for THIS audience (already renderable & keyed). */
+  products: Product[];
 };
 
-export function CollectionGrid({ audience }: Props) {
+export function CollectionGrid({ audience, products }: Props) {
   const [brand, setBrand] = useState<string>("all");
   const [query, setQuery] = useState("");
 
-  // Strict: only products that belong to THIS audience (already renderable).
-  const audienceProducts = useMemo(
-    () => getProductsByAudience(audience),
-    [audience]
-  );
+  // Strict: products arrive from the server, already filtered to this audience
+  // and to only renderable items carrying a valid, key-validated Sovrn link.
+  const audienceProducts = products;
 
   const brandChips = [{ label: "All brands", value: "all" }, ...site.categories];
 

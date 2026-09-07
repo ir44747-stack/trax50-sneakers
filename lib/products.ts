@@ -14,9 +14,9 @@
  * destination is Sovrn-wrapped into `affiliateUrl` (see lib/affiliate.ts) using
  * the publisher key from `SOVRN_PUBLISHER_KEY`.
  *
- * NOTE ON IMAGERY: images in /public/images are stylized studio renders of each
- * model/colorway. Replace them with the official merchant product images from
- * the destination pages before full go-live for 1:1 accuracy.
+ * NOTE ON IMAGERY: images in /public/images are the OFFICIAL StockX product
+ * images for each destination, downloaded from images.stockx.com/images/ so
+ * each card's photo matches its product title, brand and affiliate link.
  */
 
 import {
@@ -64,7 +64,7 @@ const seeds: Seed[] = [
     name: "Nike Dunk Low Retro 'Panda' (2021)",
     brand: "nike",
     audience: "men",
-    price: 115,
+    price: 58,
     currency: "USD",
     image: `${ASSET}/prod-1.jpg`,
     tag: "RESTOCK",
@@ -77,7 +77,7 @@ const seeds: Seed[] = [
     name: "adidas Samba OG 'Cloud White / Core Black'",
     brand: "adidas",
     audience: "men",
-    price: 100,
+    price: 60,
     currency: "USD",
     image: `${ASSET}/prod-2.jpg`,
     tag: "HOT",
@@ -89,7 +89,7 @@ const seeds: Seed[] = [
     name: "New Balance 574 'Nimbus Cloud White'",
     brand: "new-balance",
     audience: "women",
-    price: 100,
+    price: 60,
     currency: "USD",
     image: `${ASSET}/prod-3.jpg`,
     isNew: true,
@@ -100,7 +100,7 @@ const seeds: Seed[] = [
     name: "Air Jordan 1 Retro High OG 'Chicago Lost & Found'",
     brand: "jordan",
     audience: "men",
-    price: 180,
+    price: 167,
     currency: "USD",
     image: `${ASSET}/prod-4.jpg`,
     tag: "GRAIL",
@@ -124,7 +124,7 @@ const seeds: Seed[] = [
     name: "Air Jordan 1 Mid 'Panda' (Women's)",
     brand: "jordan",
     audience: "women",
-    price: 125,
+    price: 72,
     currency: "USD",
     image: `${ASSET}/prod-6.jpg`,
     tag: "HOT",
@@ -135,7 +135,7 @@ const seeds: Seed[] = [
     name: "Air Jordan 4 Retro 'Bred Reimagined' (2024)",
     brand: "jordan",
     audience: "men",
-    price: 215,
+    price: 203,
     currency: "USD",
     image: `${ASSET}/prod-11.jpg`,
     tag: "DROP",
@@ -148,7 +148,7 @@ const seeds: Seed[] = [
     name: "New Balance 990v6 MiUSA 'Grey Day' (2023)",
     brand: "new-balance",
     audience: "men",
-    price: 220,
+    price: 157,
     currency: "USD",
     image: `${ASSET}/prod-12.jpg`,
     tag: "RESTOCK",
@@ -161,7 +161,7 @@ const seeds: Seed[] = [
     name: "ASICS Gel-Kayano 14 'Black/Cream'",
     brand: "asics",
     audience: "men",
-    price: 170,
+    price: 117,
     currency: "USD",
     image: `${ASSET}/prod-13.jpg`,
     tag: "HOT",
@@ -173,7 +173,7 @@ const seeds: Seed[] = [
     name: "Salomon XT-6 'Vanilla Ice / Black / Silver Cloud'",
     brand: "salomon",
     audience: "men",
-    price: 185,
+    price: 189,
     currency: "USD",
     image: `${ASSET}/prod-14.jpg`,
     tag: "HOT",
@@ -186,7 +186,7 @@ const seeds: Seed[] = [
     name: "Air Jordan 11 Retro DMP 'Gratitude' (2023)",
     brand: "jordan",
     audience: "men",
-    price: 230,
+    price: 227,
     currency: "USD",
     image: `${ASSET}/prod-15.jpg`,
     tag: "GRAIL",
@@ -198,7 +198,7 @@ const seeds: Seed[] = [
     name: "New Balance 550 'White/Green'",
     brand: "new-balance",
     audience: "men",
-    price: 120,
+    price: 65,
     currency: "USD",
     image: `${ASSET}/prod-16.jpg`,
     tag: "HOT",
@@ -210,7 +210,7 @@ const seeds: Seed[] = [
     name: "ASICS Gel-Lyte III Remastered 'Kith Seoul'",
     brand: "asics",
     audience: "men",
-    price: 195,
+    price: 143,
     currency: "USD",
     image: `${ASSET}/prod-17.jpg`,
     tag: "DROP",
@@ -223,7 +223,7 @@ const seeds: Seed[] = [
     name: "Salomon ACS Pro Advanced 'Black/Grey'",
     brand: "salomon",
     audience: "men",
-    price: 230,
+    price: 213,
     currency: "USD",
     image: `${ASSET}/prod-18.jpg`,
     tag: "DROP",
@@ -235,7 +235,7 @@ const seeds: Seed[] = [
     name: "Air Jordan 1 Retro High 'Shattered Backboard 3.0'",
     brand: "jordan",
     audience: "men",
-    price: 160,
+    price: 209,
     currency: "USD",
     image: `${ASSET}/prod-19.jpg`,
     tag: "GRAIL",
@@ -247,7 +247,7 @@ const seeds: Seed[] = [
     name: "New Balance 990v3 'Joe Freshgoods Outside Clothes'",
     brand: "new-balance",
     audience: "men",
-    price: 220,
+    price: 224,
     currency: "USD",
     image: `${ASSET}/prod-20.jpg`,
     tag: "DROP",
@@ -259,7 +259,7 @@ const seeds: Seed[] = [
     name: "adidas Samba OG 'Black White Gum'",
     brand: "adidas",
     audience: "men",
-    price: 100,
+    price: 62,
     currency: "USD",
     image: `${ASSET}/prod-21.jpg`,
     tag: "HOT",
@@ -284,7 +284,7 @@ const seeds: Seed[] = [
     name: "ASICS Gel-Kayano 14 'White Pure Silver'",
     brand: "asics",
     audience: "men",
-    price: 150,
+    price: 146,
     currency: "USD",
     image: `${ASSET}/prod-23.jpg`,
     tag: "HOT",
@@ -321,7 +321,7 @@ const seeds: Seed[] = [
     name: "adidas Samba OG 'Black White Gum' (GS)",
     brand: "adidas",
     audience: "kids",
-    price: 80,
+    price: 59,
     currency: "USD",
     image: `${ASSET}/prod-26.jpg`,
     tag: "HOT",
@@ -345,7 +345,7 @@ const seeds: Seed[] = [
     name: "New Balance 550 'White Incense' (Women's)",
     brand: "new-balance",
     audience: "women",
-    price: 110,
+    price: 41,
     currency: "USD",
     image: `${ASSET}/prod-28.jpg`,
     tag: "HOT",
@@ -357,7 +357,7 @@ const seeds: Seed[] = [
     name: "New Balance 550 'White Lilac' (Women's)",
     brand: "new-balance",
     audience: "women",
-    price: 110,
+    price: 79,
     currency: "USD",
     image: `${ASSET}/prod-29.jpg`,
     tag: "DROP",
@@ -369,7 +369,7 @@ const seeds: Seed[] = [
     name: "New Balance 990v3 'Grey' (GS)",
     brand: "new-balance",
     audience: "kids",
-    price: 110,
+    price: 146,
     currency: "USD",
     image: `${ASSET}/prod-30.jpg`,
     isNew: true,
@@ -380,7 +380,7 @@ const seeds: Seed[] = [
     name: "Nike Air Force 1 Low '07 'White'",
     brand: "nike",
     audience: "men",
-    price: 115,
+    price: 74,
     currency: "USD",
     image: `${ASSET}/prod-31.jpg`,
     tag: "HOT",
@@ -392,7 +392,7 @@ const seeds: Seed[] = [
     name: "New Balance 9060 'Black Castlerock Grey'",
     brand: "new-balance",
     audience: "men",
-    price: 150,
+    price: 76,
     currency: "USD",
     image: `${ASSET}/prod-32.jpg`,
     tag: "RESTOCK",
@@ -405,7 +405,7 @@ const seeds: Seed[] = [
     name: "Salomon XT-6 'Vanilla Ice / Almond Milk'",
     brand: "salomon",
     audience: "men",
-    price: 200,
+    price: 140,
     currency: "USD",
     image: `${ASSET}/prod-33.jpg`,
     tag: "DROP",
@@ -417,7 +417,7 @@ const seeds: Seed[] = [
     name: "adidas Samba OG 'Cloud White / Core Black' (Women's)",
     brand: "adidas",
     audience: "women",
-    price: 100,
+    price: 55,
     currency: "USD",
     image: `${ASSET}/prod-34.jpg`,
     tag: "HOT",
@@ -430,7 +430,7 @@ const seeds: Seed[] = [
     name: "New Balance 550 'White Rain Cloud' (Women's)",
     brand: "new-balance",
     audience: "women",
-    price: 110,
+    price: 61,
     currency: "USD",
     image: `${ASSET}/prod-35.jpg`,
     tag: "DROP",
@@ -442,7 +442,7 @@ const seeds: Seed[] = [
     name: "Nike Air Max 90 Recraft 'Triple White' (GS)",
     brand: "nike",
     audience: "kids",
-    price: 100,
+    price: 72,
     currency: "USD",
     image: `${ASSET}/prod-36.jpg`,
     tag: "RESTOCK",
@@ -454,7 +454,7 @@ const seeds: Seed[] = [
     name: "New Balance 550 'White Burgundy Navy' (GS)",
     brand: "new-balance",
     audience: "kids",
-    price: 80,
+    price: 125,
     currency: "USD",
     image: `${ASSET}/prod-37.jpg`,
     tag: "DROP",
@@ -466,7 +466,7 @@ const seeds: Seed[] = [
     name: "ASICS Gel-Kayano 14 'Black Lemon Spark'",
     brand: "asics",
     audience: "men",
-    price: 150,
+    price: 107,
     currency: "USD",
     image: `${ASSET}/prod-38.jpg`,
     tag: "DROP",
@@ -479,19 +479,19 @@ const seeds: Seed[] = [
     name: "Nike Air Max 90 'Triple White'",
     brand: "nike",
     audience: "men",
-    price: 120, // تم تصحيح السعر هنا ليطابق الماركت بارييتي
+    price: 120,
     currency: "USD",
     image: `${ASSET}/prod-39.jpg`,
     tag: "RESTOCK",
     isNew: true,
-    destinationUrl: "https://stockx.com/nike-air-max-90-triple-white",
+    destinationUrl: "https://stockx.com/air-max-90-triple-white",
   },
   {
     id: "trax-040",
     name: "New Balance 550 'White Grey Dark Grey'",
     brand: "new-balance",
     audience: "men",
-    price: 120,
+    price: 57,
     currency: "USD",
     image: `${ASSET}/prod-40.jpg`,
     tag: "HOT",
@@ -544,3 +544,41 @@ export const featuredProducts = renderableProducts.filter(
 
 export const getProduct = (id: string) =>
   renderableProducts.find((p) => p.id === id);
+
+/**
+ * Serializable search snapshot used by the header search.
+ *
+ * IMPORTANT: this is computed HERE (server/data layer, at build time) so the
+ * `affiliateUrl` on every hit is the REAL Sovrn-wrapped URL already validated
+ * against the configured publisher key. Client search components must NOT
+ * import `lib/products.ts` (that would re-evaluate seedToProduct with whatever
+ * key is present in the client bundle); instead they receive this snapshot as
+ * a prop from a server component.
+ */
+export type SearchHit = {
+  id: string;
+  name: string;
+  brand: Product["brand"];
+  audience: Product["audience"];
+  price: number;
+  currency: string;
+  image: string;
+  tag?: Product["tag"];
+  isNew?: boolean;
+  affiliateUrl: string;
+};
+
+export const searchIndex: SearchHit[] = renderableProducts.map((p) => ({
+  id: p.id,
+  name: p.name,
+  brand: p.brand,
+  audience: p.audience,
+  price: p.price,
+  currency: p.currency,
+  image: p.image,
+  tag: p.tag,
+  isNew: p.isNew,
+  affiliateUrl: p.affiliateUrl,
+}));
+
+export const searchIndexCount = searchIndex.length;
