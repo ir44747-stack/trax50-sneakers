@@ -479,12 +479,12 @@ const seeds: Seed[] = [
     name: "Nike Air Max 90 'Triple White'",
     brand: "nike",
     audience: "men",
-    price: 130,
+    price: 120, // تم تصحيح السعر هنا ليطابق الماركت بارييتي
     currency: "USD",
     image: `${ASSET}/prod-39.jpg`,
     tag: "RESTOCK",
     isNew: true,
-    destinationUrl: "https://stockx.com/air-max-90-triple-white",
+    destinationUrl: "https://stockx.com/nike-air-max-90-triple-white",
   },
   {
     id: "trax-040",
