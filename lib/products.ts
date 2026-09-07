@@ -52,11 +52,73 @@ export type Product = {
 
 const ASSET = "/images";
 
-type Seed = Omit<Product, "affiliateUrl">;
+/**
+ * Explicit product -> image mapping (single source of truth).
+ *
+ * Each active product id maps to the exact official product image filename in
+ * /public/images that corresponds to that product's title, brand and StockX
+ * destination. Kept as an explicit lookup so no product can silently reference
+ * a wrong, swapped or missing image file. The active catalog is trax-001..006
+ * and trax-011..040 (ids 007-010 were retired, so their prod-N files are legacy).
+ */
+export const PRODUCT_IMAGE_MAP: Readonly<Record<string, string>> = {
+  "trax-001": "prod-1.jpg",
+  "trax-002": "prod-2.jpg",
+  "trax-003": "prod-3.jpg",
+  "trax-004": "prod-4.jpg",
+  "trax-005": "prod-5.jpg",
+  "trax-006": "prod-6.jpg",
+  "trax-011": "prod-11.jpg",
+  "trax-012": "prod-12.jpg",
+  "trax-013": "prod-13.jpg",
+  "trax-014": "prod-14.jpg",
+  "trax-015": "prod-15.jpg",
+  "trax-016": "prod-16.jpg",
+  "trax-017": "prod-17.jpg",
+  "trax-018": "prod-18.jpg",
+  "trax-019": "prod-19.jpg",
+  "trax-020": "prod-20.jpg",
+  "trax-021": "prod-21.jpg",
+  "trax-022": "prod-22.jpg",
+  "trax-023": "prod-23.jpg",
+  "trax-024": "prod-24.jpg",
+  "trax-025": "prod-25.jpg",
+  "trax-026": "prod-26.jpg",
+  "trax-027": "prod-27.jpg",
+  "trax-028": "prod-28.jpg",
+  "trax-029": "prod-29.jpg",
+  "trax-030": "prod-30.jpg",
+  "trax-031": "prod-31.jpg",
+  "trax-032": "prod-32.jpg",
+  "trax-033": "prod-33.jpg",
+  "trax-034": "prod-34.jpg",
+  "trax-035": "prod-35.jpg",
+  "trax-036": "prod-36.jpg",
+  "trax-037": "prod-37.jpg",
+  "trax-038": "prod-38.jpg",
+  "trax-039": "prod-39.jpg",
+  "trax-040": "prod-40.jpg",
+};
+
+/** Resolve a product's absolute /images/... path from the explicit image map. */
+function resolveProductImage(id: string): string {
+  const file = PRODUCT_IMAGE_MAP[id];
+  if (!file) {
+    throw new Error(`Missing product image mapping for ${id}`);
+  }
+  return `${ASSET}/${file}`;
+}
+
+type Seed = Omit<Product, "affiliateUrl" | "image">;
 
 function seedToProduct(seed: Seed): Product {
-  return { ...seed, affiliateUrl: buildSovrnAffiliateUrl(seed.destinationUrl) };
+  return {
+    ...seed,
+    image: resolveProductImage(seed.id),
+    affiliateUrl: buildSovrnAffiliateUrl(seed.destinationUrl),
+  };
 }
+
 
 const seeds: Seed[] = [
   {
@@ -66,7 +128,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 58,
     currency: "USD",
-    image: `${ASSET}/prod-1.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl:
@@ -79,7 +140,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 60,
     currency: "USD",
-    image: `${ASSET}/prod-2.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/adidas-samba-og-cloud-white-core-black",
@@ -91,7 +151,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 60,
     currency: "USD",
-    image: `${ASSET}/prod-3.jpg`,
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-574-nimbus-cloud-white-w",
   },
@@ -102,7 +161,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 167,
     currency: "USD",
-    image: `${ASSET}/prod-4.jpg`,
     tag: "GRAIL",
     destinationUrl:
       "https://stockx.com/air-jordan-1-retro-high-og-chicago-reimagined-lost-and-found",
@@ -114,7 +172,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 85,
     currency: "USD",
-    image: `${ASSET}/prod-5.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/nike-dunk-low-retro-white-black-gs",
@@ -126,7 +183,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 72,
     currency: "USD",
-    image: `${ASSET}/prod-6.jpg`,
     tag: "HOT",
     destinationUrl: "https://stockx.com/air-jordan-1-mid-panda-womens",
   },
@@ -137,7 +193,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 203,
     currency: "USD",
-    image: `${ASSET}/prod-11.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl:
@@ -150,7 +205,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 157,
     currency: "USD",
-    image: `${ASSET}/prod-12.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl:
@@ -163,7 +217,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 117,
     currency: "USD",
-    image: `${ASSET}/prod-13.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/asics-gel-kayano-14-black-cream",
@@ -175,7 +228,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 189,
     currency: "USD",
-    image: `${ASSET}/prod-14.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl:
@@ -188,7 +240,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 227,
     currency: "USD",
-    image: `${ASSET}/prod-15.jpg`,
     tag: "GRAIL",
     destinationUrl:
       "https://stockx.com/air-jordan-11-retro-dmp-defining-moments-2023",
@@ -200,7 +251,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 65,
     currency: "USD",
-    image: `${ASSET}/prod-16.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-green",
@@ -212,7 +262,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 143,
     currency: "USD",
-    image: `${ASSET}/prod-17.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl:
@@ -225,7 +274,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 213,
     currency: "USD",
-    image: `${ASSET}/prod-18.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/salomon-acs-pro-advanced-black-grey",
@@ -237,7 +285,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 209,
     currency: "USD",
-    image: `${ASSET}/prod-19.jpg`,
     tag: "GRAIL",
     destinationUrl:
       "https://stockx.com/air-jordan-1-retro-high-shattered-backboard-3",
@@ -249,7 +296,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 224,
     currency: "USD",
-    image: `${ASSET}/prod-20.jpg`,
     tag: "DROP",
     destinationUrl:
       "https://stockx.com/new-balance-990v3-joe-freshgoods-outside-clothes",
@@ -261,7 +307,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 62,
     currency: "USD",
-    image: `${ASSET}/prod-21.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/adidas-samba-black-white-gum",
@@ -273,7 +318,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 130,
     currency: "USD",
-    image: `${ASSET}/prod-22.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl:
@@ -286,7 +330,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 146,
     currency: "USD",
-    image: `${ASSET}/prod-23.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/asics-gel-kayano-14-white-pure-silver",
@@ -298,7 +341,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 190,
     currency: "USD",
-    image: `${ASSET}/prod-24.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/salomon-xt-6-lunar-rock-magnet-lime",
@@ -310,7 +352,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 194,
     currency: "USD",
-    image: `${ASSET}/prod-25.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl:
@@ -323,7 +364,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 59,
     currency: "USD",
-    image: `${ASSET}/prod-26.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/adidas-samba-og-black-white-gum-gs",
@@ -335,7 +375,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 110,
     currency: "USD",
-    image: `${ASSET}/prod-27.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-9060-castlerock-gs",
@@ -347,7 +386,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 41,
     currency: "USD",
-    image: `${ASSET}/prod-28.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-incense-womens",
@@ -359,7 +397,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 79,
     currency: "USD",
-    image: `${ASSET}/prod-29.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-lilac-womens",
@@ -371,7 +408,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 146,
     currency: "USD",
-    image: `${ASSET}/prod-30.jpg`,
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-990v3-grey-gs",
   },
@@ -382,7 +418,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 74,
     currency: "USD",
-    image: `${ASSET}/prod-31.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/nike-air-force-1-low-white-07",
@@ -394,7 +429,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 76,
     currency: "USD",
-    image: `${ASSET}/prod-32.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl:
@@ -407,7 +441,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 140,
     currency: "USD",
-    image: `${ASSET}/prod-33.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/salomon-xt-6-vanilla-ice-almond-milk",
@@ -419,7 +452,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 55,
     currency: "USD",
-    image: `${ASSET}/prod-34.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl:
@@ -432,7 +464,6 @@ const seeds: Seed[] = [
     audience: "women",
     price: 61,
     currency: "USD",
-    image: `${ASSET}/prod-35.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-rain-cloud-womens",
@@ -444,7 +475,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 72,
     currency: "USD",
-    image: `${ASSET}/prod-36.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl: "https://stockx.com/nike-air-max-90-recraft-triple-white-gs",
@@ -456,7 +486,6 @@ const seeds: Seed[] = [
     audience: "kids",
     price: 125,
     currency: "USD",
-    image: `${ASSET}/prod-37.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-burgundy-navy-gs",
@@ -468,7 +497,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 107,
     currency: "USD",
-    image: `${ASSET}/prod-38.jpg`,
     tag: "DROP",
     isNew: true,
     destinationUrl:
@@ -481,7 +509,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 120,
     currency: "USD",
-    image: `${ASSET}/prod-39.jpg`,
     tag: "RESTOCK",
     isNew: true,
     destinationUrl: "https://stockx.com/air-max-90-triple-white",
@@ -493,7 +520,6 @@ const seeds: Seed[] = [
     audience: "men",
     price: 57,
     currency: "USD",
-    image: `${ASSET}/prod-40.jpg`,
     tag: "HOT",
     isNew: true,
     destinationUrl: "https://stockx.com/new-balance-550-white-grey-dark-grey",
